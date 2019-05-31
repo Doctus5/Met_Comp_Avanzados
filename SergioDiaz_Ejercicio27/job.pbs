@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#PBS -l nodes=1:intel:ppn=8, mem=64gb
+#PBS -l walltime=7:00:00:00
+#PBS -M sa.diaz21@uniandes.edu.co
+#PBS -m abe
+#PBS -N sample_test
+#PBS -j oe
+#PBS -o joboutput.txt
+
+module load anaconda/python3
+
+make
+
+mpirun -np 4 -hostfile hosts ./12_2
+mpirun -np 4 -hostfile hosts ./12_3
+mpiexec -np n ./sample N mu sigma
+
+ 

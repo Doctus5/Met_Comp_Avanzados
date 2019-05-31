@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#PBS -l nodes=1:intel:ppn=8, mem=64gb
+#PBS -l walltime=7:00:00:00
+#PBS -M sa.diaz21@uniandes.edu.co
+#PBS -m abe
+#PBS -N sample_test
+#PBS -j oe
+#PBS -o joboutput.txt
+
+module load anaconda/python3
+
+make
+mpirun -np 4 -hostfile hosts ./12_7
+mpiexec -np 8 ./integra.x 1E3 > data_1.txt
+mpiexec -np 8 ./integra.x 1E4 > data_2.txt
+mpiexec -np 8 ./integra.x 1E5 > data_3.txt
+mpiexec -np 8 ./integra.x 1E6 > data_4.txt
+mpiexec -np 8 ./integra.x 1E7 > data_5.txt
+mpiexec -np 8 ./integra.x 1E8 > data_6.txt
+

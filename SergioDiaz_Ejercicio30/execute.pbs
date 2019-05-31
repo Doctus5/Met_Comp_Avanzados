@@ -1,0 +1,22 @@
+_MPI.pbs 
+#!/bin/bash
+
+#PBS -l nodes=1:intel:ppn=8, mem=64gb
+#PBS -l walltime=7:00:00:00
+#PBS -M sa.diaz21@uniandes.edu.co
+#PBS -m abe
+#PBS -N sample_test
+#PBS -j oe
+#PBS -o joboutput.txt
+
+module load anaconda/python3
+cd $PBS_O_WORKDIR
+export OMP_NUM_THREADS=15
+
+make
+./walk_c
+./walk_parallelc
+./walk_c > data_walk.txt
+./walk_parallelc > data_walk_parallel.txt
+./NonLinAd_c
+
